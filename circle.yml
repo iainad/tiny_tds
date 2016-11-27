@@ -17,6 +17,8 @@ dependencies:
     - rvm-exec 2.3.1 bundle install
   post:
     - docker info
+    - openssl version
+    - tsql -C
 
 database:
   post:
