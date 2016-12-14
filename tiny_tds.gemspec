@@ -3,14 +3,14 @@ $LOAD_PATH.push File.expand_path('../lib', __FILE__)
 require 'tiny_tds/version'
 
 Gem::Specification.new do |s|
-  s.name          = 'tiny_tds'
+  s.name          = 'tiny_tds_coderjoe'
   s.version       = TinyTds::VERSION
   s.platform      = Gem::Platform::RUBY
-  s.authors       = ['Ken Collins', 'Erik Bryn', 'Will Bond']
-  s.email         = ['ken@metaskills.net', 'will@wbond.net']
-  s.homepage      = 'http://github.com/rails-sqlserver/tiny_tds'
-  s.summary       = 'TinyTDS - A modern, simple and fast FreeTDS library for Ruby using DB-Library.'
-  s.description   = 'TinyTDS - A modern, simple and fast FreeTDS library for Ruby using DB-Library. Developed for the ActiveRecord SQL Server adapter.'
+  s.authors       = ['Joseph Bauser', 'Ken Collins', 'Erik Bryn', 'Will Bond']
+  s.email         = ['coderjoe@coderjoe.net', 'ken@metaskills.net', 'will@wbond.net']
+  s.homepage      = 'http://github.com/coderjoe/tiny_tds/tree/coderjoe.gem'
+  s.summary       = 'A testing version of the tiny_tds gem DO NOT USE'
+  s.description   = 'A testing version of the tiny_tds gem DO NOT USE. This is guaranteed to disappear in the future.'
   s.files         = `git ls-files`.split("\n") + Dir.glob('exe/*')
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
