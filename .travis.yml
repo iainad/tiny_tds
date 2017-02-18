@@ -14,14 +14,11 @@ before_install:
   - export PATH=/opt/local/bin:$PATH
   - docker info
   - sudo ./test/bin/setup.sh
-  - sudo ./test/bin/install-openssl.sh
-  - openssl version
-  - sudo ./test/bin/install-freetds.sh
-  - tsql -C
 install:
   - export PATH=/opt/local/bin:$PATH
   - gem install bundler
   - bundle --version
   - bundle install
+  - bundle exec rake ports
 script:
-  - bundle exec rake
+  - bundle exec rake build test
