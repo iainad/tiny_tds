@@ -9,32 +9,52 @@ require_relative '../ext/tiny_tds/extconsts'
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if defined? OpenSSL
 
 namespace :ports do
+  default_host = RbConfig::CONFIG['host']
   openssl = Ports::Openssl.new(OPENSSL_VERSION)
   libiconv = Ports::Libiconv.new(ICONV_VERSION)
   freetds = Ports::Freetds.new(FREETDS_VERSION)
 
   directory "ports"
 
+  desc "Activate all ports for the provided host (default: #{default_host})"
+  task :use, [:host] do |task, args|
+    args.with_defaults(host: default_host)
+
+    [openssl, libiconv, freetds].each do |lib|
+      lib.host = args.host
+      lib.activate
+    end
+
+    ENV['LD_LIBRARY_PATH'] = ENV['LIBRARY_PATH'] if ENV.include?('LIBRARY_PATH')
+  end
+
+  task :debug, [:host] do |task, args|
+    args.with_defaults(host: default_host)
+
+    puts `ldd #{File.join('lib', 'tiny_tds','tiny_tds.so')}`
+  end
+
+  desc "Compile openssl for the provided host (default: #{default_host})"
   task :openssl, [:host] do |task, args|
-    args.with_defaults(host: RbConfig::CONFIG['host'])
+    args.with_defaults(host: default_host)
 
     openssl.files = [OPENSSL_SOURCE_URI]
     openssl.host = args.host
     openssl.cook
-    openssl.activate
   end
 
+  desc "Compile libiconv for the provided host (default: #{default_host})"
   task :libiconv, [:host] do |task, args|
-    args.with_defaults(host: RbConfig::CONFIG['host'])
+    args.with_defaults(host: default_host)
 
     libiconv.files = [ICONV_SOURCE_URI]
     libiconv.host = args.host
     libiconv.cook
-    libiconv.activate
   end
 
+  desc "Compile freetds for the provided host (default: #{default_host})"
   task :freetds, [:host] do |task, args|
-    args.with_defaults(host: RbConfig::CONFIG['host'])
+    args.with_defaults(host: default_host)
 
     freetds.files = [FREETDS_SOURCE_URI]
     freetds.host = args.host
@@ -44,11 +64,11 @@ namespace :ports do
     end
 
     freetds.cook
-    freetds.activate
   end
 
+  desc "Compile all ports for the provided host (default: #{default_host})"
   task :compile, [:host] do |task,args|
-    args.with_defaults(host: RbConfig::CONFIG['host'])
+    args.with_defaults(host: default_host)
 
     puts "Compiling ports for #{args.host}..."
 
@@ -74,4 +94,4 @@ namespace :ports do
 end
 
 desc 'Build ports and activate libraries for the current architecture.'
-task :ports => ['ports:compile']
+task :ports => ['ports:compile', 'ports:use']

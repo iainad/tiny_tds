@@ -10,15 +10,14 @@ rvm:
   - 2.1.9
   - 2.2.5
   - 2.3.1
+  - 2.4.0
 before_install:
-  - export PATH=/opt/local/bin:$PATH
   - docker info
   - sudo ./test/bin/setup.sh
 install:
-  - export PATH=/opt/local/bin:$PATH
   - gem install bundler
   - bundle --version
   - bundle install
   - bundle exec rake ports
 script:
-  - bundle exec rake build test
+  - bundle exec rake ports build ports:debug test
