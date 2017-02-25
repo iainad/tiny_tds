@@ -47,3 +47,6 @@ environment:
     - ruby_version: "22"
 on_failure:
   - find -name compile.log | xargs cat
+artifacts:
+  - path: 'ports\**\*.log'
+    name: build logs
