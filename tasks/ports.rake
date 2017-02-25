@@ -62,6 +62,10 @@ namespace :ports do
       freetds.configure_options << "--with-libiconv-prefix=#{libiconv.path}"
     end
 
+    if openssl
+      freetds.configure_options << "--with-openssl=#{openssl.path}"
+    end
+
     freetds.cook
     freetds.activate
   end
