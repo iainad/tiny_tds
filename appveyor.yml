@@ -16,6 +16,7 @@ install:
   - bundle install
   - bundle exec rake ports build
   - bundle exec rake ports ports:debug
+  - bundle exec tsql -C
 build: off
 branches:
   except:

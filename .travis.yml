@@ -18,6 +18,8 @@ install:
   - gem install bundler
   - bundle --version
   - bundle install
-  - bundle exec rake ports
+  - bundle exec rake ports build
+  - bundle exec rake ports ports:debug
+  - bundle exec tsql -C
 script:
   - bundle exec rake ports build ports:debug test
