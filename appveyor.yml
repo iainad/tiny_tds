@@ -48,5 +48,5 @@ environment:
 on_failure:
   - find -name compile.log | xargs cat
 artifacts:
-  - path: 'ports\**\*.log'
-    name: build logs
+  - path: 'tmp\**\*.log'
+    name: ports build logs
